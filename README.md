@@ -44,37 +44,42 @@ This project implements state-of-the-art deep learning models for predicting the
 
 **Target Variable:**
 - **RUL (Remaining Useful Life):** Cycles remaining until engine failure
-- Calculated as: `RUL = max_cycle - current_cycle`
+- Calculated as: \`RUL = max_cycle - current_cycle\`
 
 ### Model Architectures
 
 #### 1️⃣ LSTM Baseline
-```
+
+\`\`\`
 Input (30 cycles × 37 features)
-↓
+    ↓
 LSTM(64 units) → Dropout(0.2)
-↓
+    ↓
 LSTM(32 units) → Dropout(0.2)
-↓
+    ↓
 Dense(16) → Dense(1)
-↓
+    ↓
 RUL Prediction
-Parameters: 39,073
-Val MAE: 17.90 cycles
+\`\`\`
+
+**Performance:**
+- Parameters: 39,073
+- Val MAE: 17.90 cycles
+
 **Limitations:**
 - Sequential processing (slow)
 - Information dilution over long sequences
 - Black box (no interpretability)
-...
+
 ---
 
 #### 2️⃣ Transformer with Multi-Head Attention ⭐
-```
 
+\`\`\`
 Input (30 cycles × 37 features)
-↓
+    ↓
 Dense Embedding (37 → 128 dimensions)
-↓
+    ↓
 ┌─────────────────────────────────┐
 │  Transformer Block              │
 │  ├─ Multi-Head Attention (4)    │
@@ -82,24 +87,24 @@ Dense Embedding (37 → 128 dimensions)
 │  ├─ Layer Normalization         │
 │  └─ Residual Connections        │
 └─────────────────────────────────┘
-↓
+    ↓
 Global Average Pooling
-↓
+    ↓
 Dense(64) → Dense(1)
-↓
+    ↓
 RUL Prediction
-...
-```
+\`\`\`
 
 **Performance:**
-Parameters: 310,529
-Val MAE: 7.61 cycles ✅
+- Parameters: 310,529
+- Val MAE: 7.61 cycles ✅
+
 **Advantages:**
 - ✅ Parallel processing (4x faster with GPU)
 - ✅ Direct access to any cycle (no dilution)
 - ✅ Interpretable attention weights
 - ✅ 57.5% better accuracy
-...
+
 ---
 
 ## 🧠 Multi-Head Attention Mechanism
@@ -120,11 +125,15 @@ The Transformer uses **4 attention heads**, each learning to focus on different 
 ## 📈 Results & Performance
 
 ### Training Performance
+
+\`\`\`
 Epoch 1:  val_mae = 28.34 cycles
 Epoch 10: val_mae = 17.29 cycles (beats LSTM!)
 Epoch 20: val_mae = 9.99 cycles
 Epoch 40: val_mae = 7.61 cycles ✅ (best)
 Epoch 50: val_mae = 8.78 cycles (final)
+\`\`\`
+
 **Training time:** 34 minutes on CPU (Intel i7)
 
 ### Error Distribution
@@ -157,7 +166,7 @@ Epoch 50: val_mae = 8.78 cycles (final)
 
 ## 📂 Project Structure
 
-```
+\`\`\`
 predictive-maintenance-nasa-cmapss/
 │
 ├── data/                          # NASA C-MAPSS dataset
@@ -178,25 +187,26 @@ predictive-maintenance-nasa-cmapss/
 │
 ├── requirements.txt               # Python dependencies
 └── README.md                      # This file
-```
+\`\`\`
+
 ---
 
 ## 🚀 Getting Started
 
 ### Installation
 
-```bash
+\`\`\`bash
 # Clone repository
 git clone https://github.com/Moez-La/predictive-maintenance-nasa-cmapss.git
 cd predictive-maintenance-nasa-cmapss
 
 # Create virtual environment
 python3 -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+source venv/bin/activate  # On Windows: venv\\Scripts\\activate
 
 # Install dependencies
 pip install -r requirements.txt
-```
+\`\`\`
 
 ### Download Dataset
 
@@ -205,15 +215,15 @@ The NASA C-MAPSS dataset will be automatically downloaded when running the noteb
 
 ### Run Notebooks
 
-```bash
+\`\`\`bash
 jupyter notebook
-```
+\`\`\`
 
 **Recommended order:**
-1. `01_data_exploration.ipynb` - Understand the dataset
-2. `02_feature_engineering.ipynb` - Feature creation and visualization
-3. `03_lstm_baseline.ipynb` - Train baseline model
-4. `04_transformer_attention.ipynb` - Train Transformer (best results)
+1. \`01_data_exploration.ipynb\` - Understand the dataset
+2. \`02_feature_engineering.ipynb\` - Feature creation and visualization
+3. \`03_lstm_baseline.ipynb\` - Train baseline model
+4. \`04_transformer_attention.ipynb\` - Train Transformer (best results)
 
 ---
 
@@ -243,7 +253,7 @@ jupyter notebook
 
 ### Real-World Deployment Scenario
 
-```python
+\`\`\`python
 # Production inference pipeline
 while True:
     # Read sensor data from 21 sensors
@@ -260,7 +270,7 @@ while True:
         alert("⚠️ Schedule maintenance within 50 cycles")
     if rul < 10:
         alert("🚨 URGENT: Engine failure imminent!")
-```
+\`\`\`
 
 ### Industries
 
