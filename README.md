@@ -46,64 +46,62 @@ This project implements state-of-the-art deep learning models for predicting the
 - **RUL (Remaining Useful Life):** Cycles remaining until engine failure
 - Calculated as: \`RUL = max_cycle - current_cycle\`
 
-### Model Architectures
+---
 
-#### 1️⃣ LSTM Baseline
+## 🧠 Model Architectures
 
-\`\`\`
-Input (30 cycles × 37 features)
-    ↓
-LSTM(64 units) → Dropout(0.2)
-    ↓
-LSTM(32 units) → Dropout(0.2)
-    ↓
-Dense(16) → Dense(1)
-    ↓
-RUL Prediction
-\`\`\`
+<table>
+<tr>
+<td width="50%">
+
+### 1️⃣ LSTM Baseline
+
+**Architecture Layers:**
+- Input: 30 cycles × 37 features
+- LSTM Layer 1: 64 units + Dropout (0.2)
+- LSTM Layer 2: 32 units + Dropout (0.2)
+- Dense Layer: 16 units
+- Output Layer: 1 unit (RUL prediction)
 
 **Performance:**
 - Parameters: 39,073
-- Val MAE: 17.90 cycles
+- Validation MAE: 17.90 cycles
 
 **Limitations:**
 - Sequential processing (slow)
 - Information dilution over long sequences
 - Black box (no interpretability)
 
----
+</td>
+<td width="50%">
 
-#### 2️⃣ Transformer with Multi-Head Attention ⭐
+### 2️⃣ Transformer with Multi-Head Attention ⭐
 
-\`\`\`
-Input (30 cycles × 37 features)
-    ↓
-Dense Embedding (37 → 128 dimensions)
-    ↓
-┌─────────────────────────────────┐
-│  Transformer Block              │
-│  ├─ Multi-Head Attention (4)    │
-│  ├─ Feed Forward Network        │
-│  ├─ Layer Normalization         │
-│  └─ Residual Connections        │
-└─────────────────────────────────┘
-    ↓
-Global Average Pooling
-    ↓
-Dense(64) → Dense(1)
-    ↓
-RUL Prediction
-\`\`\`
+**Architecture Layers:**
+- Input: 30 cycles × 37 features
+- Dense Embedding: 37 → 128 dimensions
+- **Transformer Block:**
+  - Multi-Head Attention (4 heads)
+  - Feed Forward Network
+  - Layer Normalization
+  - Residual Connections
+- Global Average Pooling
+- Dense: 64 units
+- Output: 1 unit (RUL prediction)
 
 **Performance:**
 - Parameters: 310,529
-- Val MAE: 7.61 cycles ✅
+- Validation MAE: **7.61 cycles** ✅
 
 **Advantages:**
 - ✅ Parallel processing (4x faster with GPU)
 - ✅ Direct access to any cycle (no dilution)
 - ✅ Interpretable attention weights
 - ✅ 57.5% better accuracy
+
+</td>
+</tr>
+</table>
 
 ---
 
@@ -126,13 +124,12 @@ The Transformer uses **4 attention heads**, each learning to focus on different 
 
 ### Training Performance
 
-\`\`\`
-Epoch 1:  val_mae = 28.34 cycles
-Epoch 10: val_mae = 17.29 cycles (beats LSTM!)
-Epoch 20: val_mae = 9.99 cycles
-Epoch 40: val_mae = 7.61 cycles ✅ (best)
-Epoch 50: val_mae = 8.78 cycles (final)
-\`\`\`
+**Training Progress:**
+- Epoch 1: val_mae = 28.34 cycles
+- Epoch 10: val_mae = 17.29 cycles (beats LSTM!)
+- Epoch 20: val_mae = 9.99 cycles
+- Epoch 40: val_mae = 7.61 cycles ✅ (best)
+- Epoch 50: val_mae = 8.78 cycles (final)
 
 **Training time:** 34 minutes on CPU (Intel i7)
 
@@ -161,33 +158,6 @@ Epoch 50: val_mae = 8.78 cycles (final)
 **Development:**
 - Jupyter Notebook
 - Git version control
-
----
-
-## 📂 Project Structure
-
-\`\`\`
-predictive-maintenance-nasa-cmapss/
-│
-├── data/                          # NASA C-MAPSS dataset
-│   ├── train_FD001.txt           # Training data (100 engines)
-│   ├── test_FD001.txt            # Test data
-│   └── RUL_FD001.txt             # Ground truth RUL
-│
-├── notebooks/                     # Jupyter notebooks
-│   ├── 01_data_exploration.ipynb
-│   ├── 02_feature_engineering.ipynb
-│   ├── 03_lstm_baseline.ipynb
-│   └── 04_transformer_attention.ipynb
-│
-├── src/                           # Source code modules
-│   ├── preprocessing.py          # RUL calculation, rolling features
-│   ├── train_lstm.py             # LSTM model architecture
-│   └── train_transformer.py      # Transformer model
-│
-├── requirements.txt               # Python dependencies
-└── README.md                      # This file
-\`\`\`
 
 ---
 
