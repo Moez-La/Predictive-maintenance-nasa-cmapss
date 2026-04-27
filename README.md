@@ -164,8 +164,7 @@ The Transformer uses **4 attention heads**, each learning to focus on different 
 ## 🚀 Getting Started
 
 ### Installation
-
-\`\`\`bash
+```bash
 # Clone repository
 git clone https://github.com/Moez-La/predictive-maintenance-nasa-cmapss.git
 cd predictive-maintenance-nasa-cmapss
@@ -176,19 +175,16 @@ source venv/bin/activate  # On Windows: venv\\Scripts\\activate
 
 # Install dependencies
 pip install -r requirements.txt
-\`\`\`
-
+```
 ### Download Dataset
 
 The NASA C-MAPSS dataset will be automatically downloaded when running the notebooks, or manually from:
 - [NASA Prognostics Data Repository](https://ti.arc.nasa.gov/tech/dash/groups/pcoe/prognostic-data-repository/)
 
 ### Run Notebooks
-
-\`\`\`bash
+```bash
 jupyter notebook
-\`\`\`
-
+```
 **Recommended order:**
 1. \`01_data_exploration.ipynb\` - Understand the dataset
 2. \`02_feature_engineering.ipynb\` - Feature creation and visualization
@@ -223,7 +219,7 @@ jupyter notebook
 
 ### Real-World Deployment Scenario
 
-\`\`\`python
+```python
 # Production inference pipeline
 while True:
     # Read sensor data from 21 sensors
@@ -240,7 +236,7 @@ while True:
         alert("⚠️ Schedule maintenance within 50 cycles")
     if rul < 10:
         alert("🚨 URGENT: Engine failure imminent!")
-\`\`\`
+```
 
 ### Industries
 
