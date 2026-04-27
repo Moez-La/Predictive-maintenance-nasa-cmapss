@@ -49,6 +49,7 @@ This project implements state-of-the-art deep learning models for predicting the
 ### Model Architectures
 
 #### 1️⃣ LSTM Baseline
+```
 Input (30 cycles × 37 features)
 ↓
 LSTM(64 units) → Dropout(0.2)
@@ -64,10 +65,12 @@ Val MAE: 17.90 cycles
 - Sequential processing (slow)
 - Information dilution over long sequences
 - Black box (no interpretability)
-
+...
 ---
 
 #### 2️⃣ Transformer with Multi-Head Attention ⭐
+```
+
 Input (30 cycles × 37 features)
 ↓
 Dense Embedding (37 → 128 dimensions)
@@ -85,6 +88,10 @@ Global Average Pooling
 Dense(64) → Dense(1)
 ↓
 RUL Prediction
+...
+```
+
+**Performance:**
 Parameters: 310,529
 Val MAE: 7.61 cycles ✅
 **Advantages:**
@@ -92,7 +99,7 @@ Val MAE: 7.61 cycles ✅
 - ✅ Direct access to any cycle (no dilution)
 - ✅ Interpretable attention weights
 - ✅ 57.5% better accuracy
-
+...
 ---
 
 ## 🧠 Multi-Head Attention Mechanism
@@ -149,7 +156,10 @@ Epoch 50: val_mae = 8.78 cycles (final)
 ---
 
 ## 📂 Project Structure
+
+```
 predictive-maintenance-nasa-cmapss/
+│
 ├── data/                          # NASA C-MAPSS dataset
 │   ├── train_FD001.txt           # Training data (100 engines)
 │   ├── test_FD001.txt            # Test data
@@ -168,6 +178,7 @@ predictive-maintenance-nasa-cmapss/
 │
 ├── requirements.txt               # Python dependencies
 └── README.md                      # This file
+```
 ---
 
 ## 🚀 Getting Started
